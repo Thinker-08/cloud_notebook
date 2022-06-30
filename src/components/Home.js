@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react'
 import NoteContext from '../context/notes/noteContext'
 import Notes from './Notes'
-export const Home = () => {
+export const Home = (props) => {
     const [note,setNote]=useState({title:"",description:"",tag:"Default"})
     const context=useContext(NoteContext);
     const {addNote}=context;
     const handleClick=(e)=>{
         e.preventDefault();
         addNote(note.title,note.description,note.tag);
+        props.showAlert("Note Added Successfully","success")
         setNote({title:"",description:"",tag:""});
     }
     const onChange = (e)=>{
@@ -34,7 +35,7 @@ export const Home = () => {
             </form>
             </div>
 
-            <Notes/>
+            <Notes showAlert={props.showAlert}/>
         </div>
     )
 }

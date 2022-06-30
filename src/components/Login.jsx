@@ -2,7 +2,7 @@ import React,{useState} from 'react'
 import {useHistory} from 'react-router-dom'
 import './login.css'
 
-const Login = () => {
+const Login = (props) => {
   let history = useHistory();
     const [detail, setDetail] = useState({name:"",email:"",password:""})
     const handleSubmit=async (e)=>{
@@ -20,8 +20,9 @@ const Login = () => {
           if(dat.success){
             localStorage.setItem('token',dat.authtoken);
             history.push("/")
+            props.showAlert("Logged in Successfully","success")
           }else{
-            alert("Invalid Credentails!!")
+            props.showAlert("Invalid Credentails!!","danger")
           }
     }
     const onChange=(e)=>{

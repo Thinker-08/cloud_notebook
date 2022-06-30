@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import "./login.css";
 
-const Signup = () => {
+const Signup = (props) => {
   let history = useHistory();
   const [detail, setDetail] = useState({
     name: "",
@@ -33,12 +33,13 @@ const Signup = () => {
       if (dat.success) {
         localStorage.setItem("token", dat.authtoken);
         history.push("/");
+        props.showAlert("Signed Up Successfully","success")
       } else {
-        alert("Invalid Credentails!!");
+        props.showAlert("Invalid Credentails!!","danger")
       }
     }else{
         setDetail({cpassword:""})
-        alert("Password and Confirmed Password Do Not Match")
+        props.showAlert("Password and Confirm Password do not match","danger")
     }
   };
   const onChange = (e) => {
@@ -81,6 +82,7 @@ const Signup = () => {
             name="password"
             value={detail.password}
             onChange={onChange}
+            minLength={5} required
           />
           <label className="form-label" htmlFor="form2Example2">
             Password
@@ -94,6 +96,7 @@ const Signup = () => {
             name="cpassword"
             value={detail.cpassword}
             onChange={onChange}
+            minLength={5} required
           />
           <label className="form-label" htmlFor="form2Example2">
             Confirm Password
